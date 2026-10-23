@@ -108,11 +108,75 @@ function makeFireworks() {
   }
 }
 
-["#birth-day", "#birth-month", "#birth-year"].forEach((selector) => {
-  document.querySelector(selector).addEventListener("input", (event) => {
-    event.target.value = event.target.value.replace(/\D/g, "");
+function createDateWheel(id, min, max, initialValue, label, padding = 2) {
+  const input = document.querySelector(`#${id}`);
+  const wheel = document.querySelector(`[data-wheel-for="${id}"]`);
+  const options = [...wheel.querySelectorAll(".wheel-option")];
+  let value = initialValue;
+  let maximum = max;
+
+  function render() {
+    input.value = String(value);
+    wheel.setAttribute("aria-valuenow", String(value));
+    options.forEach((option) => {
+      const optionValue = value + Number(option.dataset.offset);
+      const isAvailable = optionValue >= min && optionValue <= maximum;
+      option.textContent = isAvailable ? String(optionValue).padStart(padding, "0") : "";
+      option.disabled = !isAvailable || Number(option.dataset.offset) === 0;
+      option.setAttribute("aria-label", isAvailable ? `${label} ${option.textContent}` : `${label} ไม่พร้อมใช้งาน`);
+      option.setAttribute("aria-pressed", String(Number(option.dataset.offset) === 0));
+    });
+  }
+
+  function setValue(nextValue) {
+    value = Math.max(min, Math.min(maximum, nextValue));
+    render();
+  }
+
+  function setMaximum(nextMaximum) {
+    maximum = nextMaximum;
+    setValue(value);
+  }
+
+  wheel.addEventListener("click", (event) => {
+    const option = event.target.closest(".wheel-option");
+    if (option && !option.disabled) {
+      setValue(value + Number(option.dataset.offset));
+      wheel.focus();
+    }
   });
-});
+  wheel.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    setValue(value + (event.key === "ArrowUp" ? -1 : 1));
+  });
+  wheel.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    setValue(value + (event.deltaY < 0 ? -1 : 1));
+  }, { passive: false });
+
+  render();
+  return { setValue, setMaximum };
+}
+
+createDateWheel("birth-year", 2530, 2580, 2530, "ปี", 4);
+createDateWheel("birth-month", 1, 12, 1, "เดือน");
+const dayWheel = createDateWheel("birth-day", 1, 31, 1, "วัน");
+
+function updateDayRange() {
+  const month = Number(document.querySelector("#birth-month").value);
+  const year = Number(document.querySelector("#birth-year").value) - 543;
+  const daysInMonth = new Date(year, month, 0).getDate();
+  dayWheel.setMaximum(daysInMonth);
+}
+
+document.querySelector('[data-wheel-for="birth-month"]').addEventListener("click", updateDayRange);
+document.querySelector('[data-wheel-for="birth-year"]').addEventListener("click", updateDayRange);
+document.querySelector('[data-wheel-for="birth-month"]').addEventListener("keydown", updateDayRange);
+document.querySelector('[data-wheel-for="birth-year"]').addEventListener("keydown", updateDayRange);
+document.querySelector('[data-wheel-for="birth-month"]').addEventListener("wheel", updateDayRange);
+document.querySelector('[data-wheel-for="birth-year"]').addEventListener("wheel", updateDayRange);
+updateDayRange();
 
 document.querySelector("#unlock-button").addEventListener("click", () => {
   const day = document.querySelector("#birth-day").value;
