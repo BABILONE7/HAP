@@ -235,13 +235,11 @@ h1 em, h2 em { color: #d77f99; font-style: normal; }
   box-shadow: 0 4px 10px rgba(166, 100, 123, .07);
   text-align: center;
 }
-.wheel-window { display: flex; min-height: 96px; flex-direction: column; justify-content: center; overflow: hidden; }
+.wheel-window { height: 96px; min-height: 96px; padding: 33px 8px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scroll-snap-type: y mandatory; scrollbar-width: none; touch-action: pan-y; }
+.wheel-window::-webkit-scrollbar { display: none; }
 .wheel-window:focus-visible { border-color: #e3a2b4; outline: 0; box-shadow: 0 0 0 3px rgba(227, 162, 180, .16); }
-.wheel-option { width: 100%; height: 30px; padding: 0; border: 0; background: transparent; color: #c7b0b8; cursor: pointer; font-family: "Playfair Display", serif; font-size: 15px; line-height: 1; }
-.wheel-option:disabled { cursor: default; }
-.wheel-option[aria-pressed="true"] { border-top: 1px solid #f1d9e0; border-bottom: 1px solid #f1d9e0; background: #fff5f7; color: #674b58; font-size: 23px; }
-.wheel-option:not(:disabled):hover { color: #bd7189; }
-.wheel-option:focus-visible { outline: 2px solid #e3a2b4; outline-offset: -2px; }
+.wheel-option { display: grid; width: 100%; height: 30px; flex: 0 0 30px; place-items: center; color: #c7b0b8; font-family: "Playfair Display", serif; font-size: 15px; line-height: 1; scroll-snap-align: center; }
+.wheel-option[aria-selected="true"] { border-top: 1px solid #f1d9e0; border-bottom: 1px solid #f1d9e0; background: #fff5f7; color: #674b58; font-size: 23px; }
 .year-unit .flip-value { min-width: 86px; }
 .flip-name { color: #b8a2ab; font-size: 8px; letter-spacing: .12em; }
 .flip-colon { align-self: flex-start; margin-top: 15px; color: #d5a0ae; font-size: 20px; }

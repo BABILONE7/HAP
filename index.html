@@ -52,36 +52,24 @@
           <div class="date-label"><span class="tiny-dot"></span> SET THE BIRTHDAY</div>
           <div class="flip-clock" role="group" aria-label="กรอกวันเกิด">
             <div class="flip-unit">
-              <span class="flip-value wheel-window" data-wheel-for="birth-day" role="group" aria-label="เลือกวัน" tabindex="0">
-                <button class="wheel-option" type="button" data-offset="-1" aria-label="วันก่อนหน้า"></button>
-                <button class="wheel-option" type="button" data-offset="0" aria-label="วันที่เลือก" aria-pressed="true"></button>
-                <button class="wheel-option" type="button" data-offset="1" aria-label="วันถัดไป"></button>
-              </span>
+              <div class="flip-value wheel-window" data-wheel-for="birth-day" role="listbox" aria-label="เลือกวัน" tabindex="0"></div>
               <input id="birth-day" type="hidden" value="1">
               <span class="flip-name">DAY</span>
             </div>
             <span class="flip-colon">:</span>
             <div class="flip-unit">
-              <span class="flip-value wheel-window" data-wheel-for="birth-month" role="group" aria-label="เลือกเดือน" tabindex="0">
-                <button class="wheel-option" type="button" data-offset="-1" aria-label="เดือนก่อนหน้า"></button>
-                <button class="wheel-option" type="button" data-offset="0" aria-label="เดือนที่เลือก" aria-pressed="true"></button>
-                <button class="wheel-option" type="button" data-offset="1" aria-label="เดือนถัดไป"></button>
-              </span>
+              <div class="flip-value wheel-window" data-wheel-for="birth-month" role="listbox" aria-label="เลือกเดือน" tabindex="0"></div>
               <input id="birth-month" type="hidden" value="1">
               <span class="flip-name">MONTH</span>
             </div>
             <span class="flip-colon year-colon">:</span>
             <div class="flip-unit year-unit">
-              <span class="flip-value wheel-window" data-wheel-for="birth-year" role="group" aria-label="เลือกปี พ.ศ. ตั้งแต่ 2530 ถึง 2580" tabindex="0">
-                <button class="wheel-option" type="button" data-offset="-1" aria-label="ปีก่อนหน้า"></button>
-                <button class="wheel-option" type="button" data-offset="0" aria-label="ปีที่เลือก" aria-pressed="true"></button>
-                <button class="wheel-option" type="button" data-offset="1" aria-label="ปีถัดไป"></button>
-              </span>
+              <div class="flip-value wheel-window" data-wheel-for="birth-year" role="listbox" aria-label="เลือกปี พ.ศ. ตั้งแต่ 2530 ถึง 2580" tabindex="0"></div>
               <input id="birth-year" type="hidden" value="2530">
               <span class="flip-name">YEAR · พ.ศ.</span>
             </div>
           </div>
-          <p class="hint-line">เลื่อนล้อเพื่อเลือกวัน เดือน และปีเกิด</p>
+          <p class="hint-line">เลื่อนขึ้นลงเพื่อเลือกวัน เดือน และปีเกิด</p>
           <button class="button button-primary" id="unlock-button" type="button">
             <span>ลองไขกุญแจดู</span><span class="button-arrow">↗</span>
           </button>
