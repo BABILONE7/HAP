@@ -23,5 +23,5 @@ start of the game until the candles are blown out. The browser must be online
 to load it. Autoplay settings may block playback; use the music button in the
 header to show the YouTube player, then press its play control.
 
-After blowing out the candles, the local video at `video/01.mp4` plays. The
+After blowing out the candles, the local video at `video/02.mp4` plays. The
 letter stage becomes available after the video finishes.

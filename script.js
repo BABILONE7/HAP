@@ -66,7 +66,7 @@ function revealLetter() {
         }
         console.error("Unable to play the birthday video.", error);
         document.querySelector("#video-message").textContent = "เล่นวิดีโอไม่สำเร็จ ลองกดเล่นอีกครั้งนะ";
-        showToast("เล่นวิดีโอไม่สำเร็จ ตรวจสอบไฟล์ video/01.mp4");
+        showToast("เล่นวิดีโอไม่สำเร็จ ตรวจสอบไฟล์ video/02.mp4");
       });
     } finally {
       document.body.classList.remove("blackout");
@@ -82,7 +82,7 @@ document.querySelector("#birthday-video").addEventListener("ended", () => {
 document.querySelector("#birthday-video").addEventListener("error", () => {
   const video = document.querySelector("#birthday-video");
   console.error("Unable to load the birthday video.", video.error);
-  document.querySelector("#video-message").textContent = "โหลดวิดีโอไม่สำเร็จ ลองตรวจสอบไฟล์ video/01.mp4";
+  document.querySelector("#video-message").textContent = "โหลดวิดีโอไม่สำเร็จ ลองตรวจสอบไฟล์ video/02.mp4";
   showToast("โหลดวิดีโอไม่สำเร็จ");
 });
 
@@ -121,7 +121,7 @@ document.querySelector("#unlock-button").addEventListener("click", () => {
   const isBirthday = day === "23" && month === "10" && year === "2548";
   const feedback = document.querySelector("#date-feedback");
   if (!isBirthday) {
-    feedback.textContent = "ยังไม่ใช่วันพิเศษของเรา ลองตั้งวันที่อีกครั้งนะ ♡";
+    feedback.textContent = "ลองตั้งวันที่อีกครั้งนะ ♡";
     return;
   }
   feedback.textContent = "";
@@ -163,7 +163,7 @@ function updateCandleCount() {
   progress.style.width = `${(candleCount / 21) * 100}%`;
   doneButton.disabled = candleCount !== 21;
   if (candleCount === 21) {
-    message.textContent = "ครบ 21 แท่งพอดี เก่งมากเลย! ♡";
+    message.textContent = "ครบ 21 แท่งแล้วค้าบ ไปกันต่อออออ ♡";
   } else if (candleCount > 21) {
     message.textContent = "เกินมาแล้วน้า แตะเทียนเพื่อลบออกได้เลย";
   } else {
