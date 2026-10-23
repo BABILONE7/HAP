@@ -5,7 +5,12 @@ const toast = document.querySelector("#toast");
 let currentStage = 1;
 let toastTimer;
 let candleCount = 0;
-let photos = [];
+const photos = [
+  "pic/41957_0.jpg",
+  "pic/41764_0.jpg",
+  "pic/41764_0.jpg",
+  "pic/41957_0.jpg"
+];
 let currentPhoto = 0;
 let musicStopped = false;
 const candleSlots = [
@@ -222,7 +227,6 @@ document.querySelector("#blow-button").addEventListener("click", revealLetter);
 
 function updatePhoto() {
   const image = document.querySelector("#memory-image");
-  const placeholder = document.querySelector("#photo-placeholder");
   const count = document.querySelector("#photo-count");
   const dots = document.querySelector("#slide-dots");
   dots.replaceChildren();
@@ -238,38 +242,12 @@ function updatePhoto() {
     });
     dots.append(dot);
   });
-  if (photos.length === 0) {
-    image.classList.add("hidden");
-    image.removeAttribute("src");
-    placeholder.classList.remove("hidden");
-    return;
-  }
   currentPhoto = Math.min(currentPhoto, photos.length - 1);
   image.src = photos[currentPhoto];
   image.classList.remove("hidden");
-  placeholder.classList.add("hidden");
 }
 
-document.querySelector("#photo-upload").addEventListener("change", (event) => {
-  const files = [...event.target.files];
-  const note = document.querySelector("#upload-note");
-  if (files.length !== 4) {
-    note.textContent = "เลือกรูปภาพให้ครบ 4 รูปในครั้งเดียวนะ ♡";
-    event.target.value = "";
-    return;
-  }
-  if (files.some((file) => !file.type.startsWith("image/"))) {
-    note.textContent = "ไฟล์ที่เลือกต้องเป็นรูปภาพทั้งหมดนะ";
-    event.target.value = "";
-    return;
-  }
-  photos.forEach((photo) => URL.revokeObjectURL(photo));
-  photos = files.map((file) => URL.createObjectURL(file));
-  currentPhoto = 0;
-  note.textContent = "เพิ่มรูปความทรงจำครบแล้ว ♡";
-  updatePhoto();
-  event.target.value = "";
-});
+updatePhoto();
 
 document.querySelector("#photo-prev").addEventListener("click", () => {
   if (!photos.length) return;
@@ -291,7 +269,6 @@ document.querySelector("#open-letter").addEventListener("click", () => {
     gate.classList.add("hidden");
     document.querySelector("#letter-card").classList.remove("hidden");
     document.querySelector("#ending-note").classList.remove("hidden");
-    document.querySelector("#upload-note").textContent = "เลือกรูปความทรงจำของเราให้ครบ 4 รูปนะ ♡";
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   }, 750);
 });
