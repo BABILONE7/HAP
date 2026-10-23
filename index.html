@@ -51,25 +51,22 @@
         <div class="date-panel">
           <div class="date-label"><span class="tiny-dot"></span> SET THE BIRTHDAY</div>
           <div class="flip-clock" role="group" aria-label="กรอกวันเกิด">
-            <div class="flip-unit">
-              <div class="flip-value wheel-window" data-wheel-for="birth-day" role="listbox" aria-label="เลือกวัน" tabindex="0"></div>
-              <input id="birth-day" type="hidden" value="1">
+            <label class="flip-unit">
+              <span class="flip-value"><input id="birth-day" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="DD" autocomplete="off" aria-label="วัน" required></span>
               <span class="flip-name">DAY</span>
-            </div>
+            </label>
             <span class="flip-colon">:</span>
-            <div class="flip-unit">
-              <div class="flip-value wheel-window" data-wheel-for="birth-month" role="listbox" aria-label="เลือกเดือน" tabindex="0"></div>
-              <input id="birth-month" type="hidden" value="1">
+            <label class="flip-unit">
+              <span class="flip-value"><input id="birth-month" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="MM" autocomplete="off" aria-label="เดือน" required></span>
               <span class="flip-name">MONTH</span>
-            </div>
+            </label>
             <span class="flip-colon year-colon">:</span>
-            <div class="flip-unit year-unit">
-              <div class="flip-value wheel-window" data-wheel-for="birth-year" role="listbox" aria-label="เลือกปี พ.ศ. ตั้งแต่ 2530 ถึง 2580" tabindex="0"></div>
-              <input id="birth-year" type="hidden" value="2530">
+            <label class="flip-unit year-unit">
+              <span class="flip-value"><input id="birth-year" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="YYYY" autocomplete="off" aria-label="ปี พ.ศ. (2530–2580)" required></span>
               <span class="flip-name">YEAR · พ.ศ.</span>
-            </div>
+            </label>
           </div>
-          <p class="hint-line">เลื่อนขึ้นลงเพื่อเลือกวัน เดือน และปีเกิด</p>
+          <p class="hint-line">กรอกวัน เดือน และปีเกิดของเธอ</p>
           <button class="button button-primary" id="unlock-button" type="button">
             <span>ลองไขกุญแจดู</span><span class="button-arrow">↗</span>
           </button>

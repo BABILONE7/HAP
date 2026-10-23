@@ -108,74 +108,11 @@ function makeFireworks() {
   }
 }
 
-function createDateWheel(id, min, max, initialValue, padding = 2) {
-  const input = document.querySelector(`#${id}`);
-  const wheel = document.querySelector(`[data-wheel-for="${id}"]`);
-  let value = initialValue;
-  let maximum = max;
-
-  function render() {
-    input.value = String(value);
-    wheel.setAttribute("aria-valuenow", String(value));
-    wheel.replaceChildren(...Array.from({ length: maximum - min + 1 }, (_, index) => {
-      const option = document.createElement("span");
-      const optionValue = min + index;
-      option.className = "wheel-option";
-      option.textContent = String(optionValue).padStart(padding, "0");
-      option.setAttribute("role", "option");
-      option.setAttribute("aria-selected", String(optionValue === value));
-      option.dataset.value = String(optionValue);
-      return option;
-    }));
-    wheel.scrollTop = (value - min) * 30;
-  }
-
-  function setValue(nextValue) {
-    value = Math.max(min, Math.min(maximum, nextValue));
-    render();
-  }
-
-  function setMaximum(nextMaximum) {
-    maximum = nextMaximum;
-    setValue(value);
-  }
-
-  wheel.addEventListener("scroll", () => {
-    const nextValue = Math.max(min, Math.min(maximum, min + Math.round(wheel.scrollTop / 30)));
-    if (nextValue === value) return;
-    value = nextValue;
-    input.value = String(value);
-    wheel.setAttribute("aria-valuenow", String(value));
-    wheel.querySelectorAll(".wheel-option").forEach((option) => {
-      option.setAttribute("aria-selected", String(Number(option.dataset.value) === value));
-    });
-    wheel.dispatchEvent(new Event("datewheelchange"));
+["#birth-day", "#birth-month", "#birth-year"].forEach((selector) => {
+  document.querySelector(selector).addEventListener("input", (event) => {
+    event.target.value = event.target.value.replace(/\D/g, "");
   });
-  wheel.addEventListener("keydown", (event) => {
-    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
-    event.preventDefault();
-    const nextValue = Math.max(min, Math.min(maximum, value + (event.key === "ArrowUp" ? -1 : 1)));
-    wheel.scrollTo({ top: (nextValue - min) * 30, behavior: "smooth" });
-  });
-
-  render();
-  return { setMaximum, wheel };
-}
-
-const yearWheel = createDateWheel("birth-year", 2530, 2580, 2530, 4);
-const monthWheel = createDateWheel("birth-month", 1, 12, 1);
-const dayWheel = createDateWheel("birth-day", 1, 31, 1);
-
-function updateDayRange() {
-  const month = Number(document.querySelector("#birth-month").value);
-  const year = Number(document.querySelector("#birth-year").value) - 543;
-  const daysInMonth = new Date(year, month, 0).getDate();
-  dayWheel.setMaximum(daysInMonth);
-}
-
-monthWheel.wheel.addEventListener("datewheelchange", updateDayRange);
-yearWheel.wheel.addEventListener("datewheelchange", updateDayRange);
-updateDayRange();
+});
 
 document.querySelector("#unlock-button").addEventListener("click", () => {
   const day = document.querySelector("#birth-day").value;
@@ -183,6 +120,10 @@ document.querySelector("#unlock-button").addEventListener("click", () => {
   const year = document.querySelector("#birth-year").value;
   const isBirthday = day === "23" && month === "10" && year === "2548";
   const feedback = document.querySelector("#date-feedback");
+  if (year && (Number(year) < 2530 || Number(year) > 2580)) {
+    feedback.textContent = "ปี พ.ศ. ต้องอยู่ระหว่าง 2530–2580 นะ ♡";
+    return;
+  }
   if (!isBirthday) {
     feedback.textContent = "ลองตั้งวันที่อีกครั้งนะ ♡";
     return;
