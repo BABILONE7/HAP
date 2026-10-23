@@ -8,8 +8,8 @@ let candleCount = 0;
 const photos = [
   "pic/41957_0.jpg",
   "pic/41764_0.jpg",
-  "pic/41764_0.jpg",
-  "pic/41957_0.jpg"
+  "pic/41759_0.jpg",
+  "pic/41758_0.jpg"
 ];
 let currentPhoto = 0;
 let musicStopped = false;
@@ -71,7 +71,7 @@ function revealLetter() {
     } finally {
       document.body.classList.remove("blackout");
     }
-  }, 800);
+  }, 4000);
 }
 
 document.querySelector("#birthday-video").addEventListener("ended", () => {
@@ -247,7 +247,15 @@ function updatePhoto() {
   image.classList.remove("hidden");
 }
 
+const memoryImage = document.querySelector("#memory-image");
+memoryImage.addEventListener("error", () => {
+  console.error("Unable to load the memory photo.", memoryImage.src);
+  document.querySelector("#photo-count").textContent = "โหลดรูปไม่สำเร็จ";
+});
 updatePhoto();
+if (memoryImage.complete && memoryImage.naturalWidth === 0) {
+  memoryImage.dispatchEvent(new Event("error"));
+}
 
 document.querySelector("#photo-prev").addEventListener("click", () => {
   if (!photos.length) return;
@@ -269,6 +277,7 @@ document.querySelector("#open-letter").addEventListener("click", () => {
     gate.classList.add("hidden");
     document.querySelector("#letter-card").classList.remove("hidden");
     document.querySelector("#ending-note").classList.remove("hidden");
+    updatePhoto();
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   }, 750);
 });

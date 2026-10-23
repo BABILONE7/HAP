@@ -14,9 +14,9 @@ py app.py
 Then open <http://127.0.0.1:8000> in a browser. If `py` is unavailable, install
 Python 3 and run `python app.py` instead.
 
-At the letter stage, choose exactly four image files to preview them in the
-slideshow. The selected photos stay in the current browser tab and are not
-uploaded to the server.
+The letter stage displays a slideshow of the four bundled photos in `pic/`.
+If the page still shows the old photo-upload control, restart the server from
+this project folder and hard-refresh the browser (`Ctrl+F5`).
 
 The birthday music attempts to autoplay as a looping YouTube embed from the
 start of the game until the candles are blown out. The browser must be online
